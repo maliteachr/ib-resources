@@ -1,0 +1,233 @@
+
+<h2 class="sr-only">IB Extended Essay Grade Guide — interactive self-assessment tool, grades A to E with checklist.</h2>
+
+<style>
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:root{--ga:#3B6D11;--ga-bg:#EAF3DE;--ga-m:#639922;--gb:#185FA5;--gb-bg:#E6F1FB;--gb-m:#378ADD;--gc:#854F0B;--gc-bg:#FAEEDA;--gc-m:#EF9F27;--gd:#993556;--gd-bg:#FBEAF0;--gd-m:#D4537E;--ge:#A32D2D;--ge-bg:#FCEBEB;--ge-m:#E24B4A}
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.25rem 0 2rem;max-width:680px}
+.page-heading{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.intro p{font-size:13px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;margin-bottom:1rem}
+.tab{flex:1;padding:10px 4px;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);cursor:pointer;text-align:center;transition:all .15s;user-select:none}
+.tab:hover{border-color:var(--color-border-secondary)}
+.gl{font-size:20px;font-weight:500;display:block;margin-bottom:1px;color:var(--color-text-primary)}
+.gn{font-size:11px;color:var(--color-text-secondary);display:block}
+.tab.on-a{background:var(--ga-bg);border-color:var(--ga-m)}.tab.on-a .gl{color:var(--ga)}
+.tab.on-b{background:var(--gb-bg);border-color:var(--gb-m)}.tab.on-b .gl{color:var(--gb)}
+.tab.on-c{background:var(--gc-bg);border-color:var(--gc-m)}.tab.on-c .gl{color:var(--gc)}
+.tab.on-d{background:var(--gd-bg);border-color:var(--gd-m)}.tab.on-d .gl{color:var(--gd)}
+.tab.on-e{background:var(--ge-bg);border-color:var(--ge-m)}.tab.on-e .gl{color:var(--ge)}
+.panel{display:none;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:1.25rem}
+.panel.on{display:block}
+.ph{display:flex;align-items:center;gap:10px;padding:12px 16px}
+.badge{font-size:22px;font-weight:500;width:44px;height:44px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.ph-text h2{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.ph-text p{font-size:12px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 10px 10px}
+.crit{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;border:0.5px solid var(--color-border-tertiary)}
+.ct{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.cd{font-size:12px;color:var(--color-text-primary);line-height:1.45}
+.tips{margin:0 10px 12px;padding:10px 12px;border-radius:var(--border-radius-md);border-left:3px solid}
+.tips p{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px}
+.tips li{font-size:12px;line-height:1.5;color:var(--color-text-primary);list-style:none;padding:1px 0}
+.tips li::before{content:"→ ";color:var(--color-text-secondary)}
+.pa .ph{background:var(--ga-bg)}.pa .badge{background:var(--ga-m)}.pa .tips{background:var(--ga-bg);border-color:var(--ga-m)}
+.pb .ph{background:var(--gb-bg)}.pb .badge{background:var(--gb-m)}.pb .tips{background:var(--gb-bg);border-color:var(--gb-m)}
+.pc .ph{background:var(--gc-bg)}.pc .badge{background:var(--gc-m)}.pc .tips{background:var(--gc-bg);border-color:var(--gc-m)}
+.pd .ph{background:var(--gd-bg)}.pd .badge{background:var(--gd-m)}.pd .tips{background:var(--gd-bg);border-color:var(--gd-m)}
+.pe .ph{background:var(--ge-bg)}.pe .badge{background:var(--ge-m)}.pe .tips{background:var(--ge-bg);border-color:var(--ge-m)}
+.fb{font-size:11px;padding:2px 7px;border-radius:var(--border-radius-md);background:var(--color-background-danger);color:var(--color-text-danger);font-weight:500;margin-left:6px}
+hr{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.25rem 0}
+.cl-head h2{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.cl-head p{font-size:12px;color:var(--color-text-secondary);margin-bottom:.85rem;line-height:1.5}
+.cg-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;margin-top:.85rem}
+.ci{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:var(--border-radius-md);margin-bottom:3px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);cursor:pointer}
+.ci:hover{border-color:var(--color-border-secondary)}
+.ci input{margin-top:2px;width:15px;height:15px;flex-shrink:0;cursor:pointer;accent-color:var(--ga-m)}
+.ci label{font-size:12px;color:var(--color-text-primary);line-height:1.5;cursor:pointer}
+.ci.done label{color:var(--color-text-secondary);text-decoration:line-through}
+.ci.done{background:var(--ga-bg);border-color:var(--ga-m);opacity:.7}
+.sb-wrap{margin-top:1rem;padding:12px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary)}
+.sb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.sb-top span{font-size:12px;color:var(--color-text-secondary)}
+.sb-top strong{font-size:14px;color:var(--color-text-primary)}
+.sb-outer{height:7px;background:var(--color-border-tertiary);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.sb-inner{height:100%;border-radius:99px;transition:width .3s,background .3s}
+.sb-msg{font-size:12px;color:var(--color-text-secondary);line-height:1.45}
+.tip{margin-top:1.25rem;padding:12px 14px;border-radius:var(--border-radius-lg);background:var(--gb-bg);border:0.5px solid var(--gb-m);font-size:12px;color:var(--color-text-primary);line-height:1.55}
+.tip strong{color:var(--gb)}
+</style>
+
+<div class="wrap">
+<div class="intro">
+  <h1 class="page-heading">EE Grade Guide</h1>
+  <p>Pick a grade to see what examiners expect. Then use the self-check below.</p>
+</div>
+
+<div class="tabs" role="tablist">
+  <div class="tab on-a" role="tab" onclick="show('a')" tabindex="0"><span class="gl">A</span><span class="gn">Excellent</span></div>
+  <div class="tab" role="tab" onclick="show('b')" tabindex="0"><span class="gl">B</span><span class="gn">Good</span></div>
+  <div class="tab" role="tab" onclick="show('c')" tabindex="0"><span class="gl">C</span><span class="gn">Satisfactory</span></div>
+  <div class="tab" role="tab" onclick="show('d')" tabindex="0"><span class="gl">D</span><span class="gn">Weak</span></div>
+  <div class="tab" role="tab" onclick="show('e')" tabindex="0"><span class="gl">E</span><span class="gn">Failing</span></div>
+</div>
+
+<div id="pa" class="panel pa on">
+  <div class="ph"><div class="badge">A</div><div class="ph-text"><h2>Grade A — Excellent</h2><p>Genuine scholarly thinking, well-argued and honestly reflected upon.</p></div></div>
+  <div class="grid">
+    <div class="crit"><div class="ct">Research question</div><div class="cd">Sharp and specific — clearly answerable within 4,000 words.</div></div>
+    <div class="crit"><div class="ct">Structure</div><div class="cd">Guides the reader logically from start to finish.</div></div>
+    <div class="crit"><div class="ct">Knowledge</div><div class="cd">Deep understanding, placed in the wider subject context.</div></div>
+    <div class="crit"><div class="ct">Analysis</div><div class="cd">Every claim is evidenced. Conclusions follow the argument.</div></div>
+    <div class="crit"><div class="ct">Sources</div><div class="cd">Well-chosen, correctly cited and critically evaluated.</div></div>
+    <div class="crit"><div class="ct">Reflection (RPPF)</div><div class="cd">Evaluative — shows clear growth and learning transfer.</div></div>
+  </div>
+  <div class="tips"><p>Ask yourself</p><ul>
+    <li>Can my RQ be fully answered in exactly 4,000 words?</li>
+    <li>Does every paragraph push my argument forward?</li>
+    <li>Does my RPPF evaluate, not just describe?</li>
+  </ul></div>
+</div>
+
+<div id="pb" class="panel pb">
+  <div class="ph"><div class="badge">B</div><div class="ph-text"><h2>Grade B — Good</h2><p>Solid and well-argued, but analysis could go deeper in places.</p></div></div>
+  <div class="grid">
+    <div class="crit"><div class="ct">Research question</div><div class="cd">Clear and focused — could be sharper.</div></div>
+    <div class="crit"><div class="ct">Structure</div><div class="cd">Well-organised. Ideas flow logically.</div></div>
+    <div class="crit"><div class="ct">Knowledge</div><div class="cd">Good grasp of the topic and subject context.</div></div>
+    <div class="crit"><div class="ct">Analysis</div><div class="cd">Mostly evidence-backed. Conclusions follow the research.</div></div>
+    <div class="crit"><div class="ct">Sources</div><div class="cd">Relevant and appropriately used. Some critical evaluation.</div></div>
+    <div class="crit"><div class="ct">Reflection (RPPF)</div><div class="cd">Clear, with signs of growth shown.</div></div>
+  </div>
+  <div class="tips"><p>To reach A</p><ul>
+    <li>Find where you describe instead of analyse — dig deeper.</li>
+    <li>Evaluate every source, don't just quote it.</li>
+    <li>Make your RPPF evaluative, not just a diary.</li>
+  </ul></div>
+</div>
+
+<div id="pc" class="panel pc">
+  <div class="ph"><div class="badge">C</div><div class="ph-text"><h2>Grade C — Satisfactory</h2><p>Research is present but the essay describes more than it analyses.</p></div></div>
+  <div class="grid">
+    <div class="crit"><div class="ct">Research question</div><div class="cd">Present but may be too broad to answer fully.</div></div>
+    <div class="crit"><div class="ct">Structure</div><div class="cd">Some structure, but inconsistent throughout.</div></div>
+    <div class="crit"><div class="ct">Knowledge</div><div class="cd">Some relevant knowledge; wider context is thin.</div></div>
+    <div class="crit"><div class="ct">Analysis</div><div class="cd">More descriptive than analytical. Conclusions partly supported.</div></div>
+    <div class="crit"><div class="ct">Sources</div><div class="cd">Mostly appropriate. Terminology not always correct.</div></div>
+    <div class="crit"><div class="ct">Reflection (RPPF)</div><div class="cd">Attempted. Some growth shown but not evidenced clearly.</div></div>
+  </div>
+  <div class="tips"><p>Key actions</p><ul>
+    <li>Narrow your RQ — apply the "so what?" test to every paragraph.</li>
+    <li>After each piece of evidence, explain what it proves.</li>
+    <li>Describe a specific turning point in your RPPF.</li>
+  </ul></div>
+</div>
+
+<div id="pd" class="panel pd">
+  <div class="ph"><div class="badge">D</div><div class="ph-text"><h2>Grade D — Weak</h2><p>Significant revision needed. The RQ is too broad and discussion is mostly descriptive.</p></div></div>
+  <div class="grid">
+    <div class="crit"><div class="ct">Research question</div><div class="cd">Too vague — cannot be answered in 4,000 words.</div></div>
+    <div class="crit"><div class="ct">Structure</div><div class="cd">Attempted but sometimes obstructs the argument.</div></div>
+    <div class="crit"><div class="ct">Knowledge</div><div class="cd">Some relevant knowledge mixed with irrelevant content.</div></div>
+    <div class="crit"><div class="ct">Analysis</div><div class="cd">Mostly descriptive. Conclusions inconsistent and unsupported.</div></div>
+    <div class="crit"><div class="ct">Sources</div><div class="cd">Terminology used incorrectly. Sources applied weakly.</div></div>
+    <div class="crit"><div class="ct">Reflection (RPPF)</div><div class="cd">Limited. Growth mentioned but not shown.</div></div>
+  </div>
+  <div class="tips"><p>Priority actions</p><ul>
+    <li>Rewrite the RQ — make it specific and answerable.</li>
+    <li>Ask yourself: am I describing or am I arguing?</li>
+    <li>Talk to your supervisor before revising further.</li>
+  </ul></div>
+</div>
+
+<div id="pe" class="panel pe">
+  <div class="ph"><div class="badge">E</div><div class="ph-text"><h2>Grade E — Failing <span class="fb">Fails diploma</span></h2><p>The essay lacks focus, structure and analysis. Urgent action required.</p></div></div>
+  <div class="grid">
+    <div class="crit"><div class="ct">Research question</div><div class="cd">Absent or completely unfocused.</div></div>
+    <div class="crit"><div class="ct">Structure</div><div class="cd">No clear organisation of ideas.</div></div>
+    <div class="crit"><div class="ct">Knowledge</div><div class="cd">Limited and partially accurate.</div></div>
+    <div class="crit"><div class="ct">Analysis</div><div class="cd">Summarises sources only. No real argument.</div></div>
+    <div class="crit"><div class="ct">Sources</div><div class="cd">Poorly used. Connections to argument missing.</div></div>
+    <div class="crit"><div class="ct">Reflection (RPPF)</div><div class="cd">Very limited. No evidence of learning.</div></div>
+  </div>
+  <div class="tips"><p>Urgent — see your supervisor now</p><ul>
+    <li>Grade E means you cannot earn the IB Diploma.</li>
+    <li>Start with a new, specific RQ before anything else.</li>
+    <li>Read two strong EE examples in your subject.</li>
+  </ul></div>
+</div>
+
+<hr>
+
+<div class="cl-head">
+  <h2><i class="ti ti-list-check" aria-hidden="true"></i> Grade A self-check</h2>
+  <p>Tick each item as you confirm it in your draft.</p>
+</div>
+
+<div class="cg-title"><i class="ti ti-zoom-question" aria-hidden="true"></i> Research question</div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="RQ is specific and answerable"><label>My RQ is specific enough to be fully answered within 4,000 words.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="RQ is clearly stated"><label>My RQ is clearly stated — a reader knows exactly what I'm investigating.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="All sections address RQ"><label>Every section of my essay helps to answer the RQ.</label></div>
+
+<div class="cg-title"><i class="ti ti-layout-list" aria-hidden="true"></i> Structure</div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Clear structure"><label>My essay has a clear intro, body and conclusion that connect logically.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Terminology correct"><label>I use subject-specific terminology correctly throughout.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Argument easy to follow"><label>A reader unfamiliar with my topic could still follow my argument.</label></div>
+
+<div class="cg-title"><i class="ti ti-chart-line" aria-hidden="true"></i> Analysis & argument</div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Analyse not describe"><label>I analyse and evaluate sources — I don't just describe or summarise them.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Claims supported"><label>Every claim is supported by evidence.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Conclusions follow argument"><label>My conclusions follow directly from my argument.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Counterarguments considered"><label>I have considered different perspectives or counterarguments.</label></div>
+
+<div class="cg-title"><i class="ti ti-books" aria-hidden="true"></i> Sources</div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Sources relevant"><label>My sources are relevant, reliable and varied.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Sources cited"><label>All sources are correctly cited in my bibliography.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Sources evaluated"><label>I have evaluated the limitations of my sources.</label></div>
+
+<div class="cg-title"><i class="ti ti-refresh" aria-hidden="true"></i> Reflection (RPPF)</div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="RPPF evaluative"><label>My RPPF entries evaluate what I learned, not just what I did.</label></div>
+<div class="ci" onclick="tick(this)"><input type="checkbox" aria-label="Growth shown"><label>I show how my thinking changed throughout the process.</label></div>
+
+<div class="sb-wrap">
+  <div class="sb-top"><span>Grade A readiness</span><strong id="sc">0 / 15</strong></div>
+  <div class="sb-outer"><div class="sb-inner" id="sb" style="width:0%;background:var(--ge-m)"></div></div>
+  <div class="sb-msg" id="sm">Tick items above as you confirm them in your draft.</div>
+</div>
+
+<div class="tip"><strong><i class="ti ti-lightbulb" aria-hidden="true"></i> Remember:</strong> Examiners look at the overall picture. Strong essays show genuine curiosity, clear argument and honest reflection throughout.</div>
+</div>
+
+<script>
+var gs=['a','b','c','d','e'];
+function show(g){
+  gs.forEach(function(x){
+    document.getElementById('p'+x).className='panel p'+x;
+    var tabs=document.querySelectorAll('.tab');
+    tabs[gs.indexOf(x)].className='tab';
+  });
+  document.getElementById('p'+g).className='panel p'+g+' on';
+  document.querySelectorAll('.tab')[gs.indexOf(g)].className='tab on-'+g;
+}
+function tick(el){
+  var cb=el.querySelector('input');
+  cb.checked=!cb.checked;
+  el.classList.toggle('done',cb.checked);
+  var all=document.querySelectorAll('.ci input'),n=0;
+  all.forEach(function(c){if(c.checked)n++;});
+  var t=all.length,p=Math.round(n/t*100);
+  document.getElementById('sc').textContent=n+' / '+t;
+  var bar=document.getElementById('sb'),msg=document.getElementById('sm'),col,txt;
+  if(p===0){col='var(--ge-m)';txt='Tick items above as you confirm them in your draft.';}
+  else if(p<40){col='var(--ge-m)';txt='Grade D–E level. Start with your research question and structure.';}
+  else if(p<60){col='var(--gd-m)';txt='Moving towards Grade C–D. Work on analysis and argument.';}
+  else if(p<80){col='var(--gc-m)';txt='Grade B–C territory. Push analysis deeper and evaluate sources.';}
+  else if(p<100){col='var(--gb-m)';txt='Nearly there — Grade A is within reach. Refine your weakest areas.';}
+  else{col='var(--ga-m)';txt='All 15 ticked. Read through once more with fresh eyes.';}
+  bar.style.width=p+'%';bar.style.background=col;msg.textContent=txt;
+}
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t.click();}});
+});
+</script>
